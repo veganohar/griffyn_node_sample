@@ -2,10 +2,10 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+const dbconfig = require("./app/config/db.config");
+const db = require("./app/models");
 
-
-mongoose.connect('mongodb://localhost/my_database', {
+db.mongoose.connect(`mongodb://${dbconfig.HOST}:${dbconfig.PORT}/${dbconfig.DB}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(()=>{
@@ -36,3 +36,4 @@ app.post("/dataQuery",(req,res)=>{
     res.send(req.query);
 })
 
+require("./app/routes/customer.route")(app);
