@@ -4,6 +4,7 @@ const PORT = 3000;
 const bodyParser = require("body-parser");
 const dbconfig = require("./app/config/db.config");
 const db = require("./app/models");
+const cors = require("cors");
 
 db.mongoose.connect(`mongodb://${dbconfig.HOST}:${dbconfig.PORT}/${dbconfig.DB}`, {
   useNewUrlParser: true,
@@ -14,7 +15,7 @@ db.mongoose.connect(`mongodb://${dbconfig.HOST}:${dbconfig.PORT}/${dbconfig.DB}`
     console.log(err);
     process.exit();    
 })
-
+app.use(cors());
 app.use(bodyParser.json());
 app.listen(PORT,()=>{
     console.log("Server running");

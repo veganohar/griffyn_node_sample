@@ -7,6 +7,10 @@ const Customer = mongoose.model(
         phone:Number,
         email:String,
         city:String,
+        isActive:{
+            type:Boolean,
+            default:true
+        },
         createdOn:{
             type:Date,
             default:Date.now

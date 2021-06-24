@@ -5,7 +5,7 @@ const Customer = db.customer;
 exports.createCustomer = (req,res)=>{
     //req.body holds data sent from client
     let data = req.body;
-    let customer = new Customer();
+    console.log(data);
     //Assigning body data to the customer object
     for(let p in data){
         customer[p] = data[p];
@@ -26,7 +26,7 @@ exports.createCustomer = (req,res)=>{
 
 exports.getAllCustomers = (req,res)=>{
     //'find' used to fetch data from DB
- Customer.find((err,customers)=>{
+ Customer.find().sort("-createdOn").exec((err,customers)=>{
     if(err){
         return res.status(500).send({message:err})
     }
@@ -61,6 +61,19 @@ exports.deleteCustomer = (req,res)=>{
         res.status(201).send({
             data:response,
             message:"Customer deleted"
+        })
+    })
+}
+
+//Function to get record by its id;
+exports.getCustomerById = (req,res)=>{
+    //'findById' is used to fetch record by it's id
+    Customer.findById(req.params.cid,(err,customer)=>{
+        if(err){
+            return res.status(500).send({message:err})
+        }
+        res.status(200).send({
+            data:customer
         })
     })
 }
