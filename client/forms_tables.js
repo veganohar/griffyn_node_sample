@@ -111,3 +111,17 @@ async function saveCustomer(customer){
     document.getElementById("cform").reset();
     getAllCustomers();
 }
+
+
+async function onDelete(id){
+    if(confirm("Do you want to delete?")){
+        let uri = `http://localhost:3000/api/customers/deleteCustomer/${id}`;
+        let options={
+            method:'DELETE'
+        };
+        let response = await fetch(uri,options);
+        let result = await response.json();
+        console.log(result);
+        getAllCustomers();
+    }
+}
